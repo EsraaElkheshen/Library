@@ -1,0 +1,3184 @@
+{
+	"info": {
+		"_postman_id": "16d96ffa-cc2f-4fd8-8666-86a75965ebe1",
+		"name": "Library",
+		"description": "<img src=\"https://content.pstmn.io/4244e387-59a6-44e3-a8a2-7beb40edba97/aW1hZ2UucG5n\" width=\"300\" height=\"168\">\n\n# _**Features :**_\n\n## 📚 Books\n\n## 🏠 Household\n\n## 👤 User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13755881",
+		"_collection_link": "https://www.postman.com/esraaelkheshen53/workspace/rest-course/collection/13755881-16d96ffa-cc2f-4fd8-8666-86a75965ebe1?action=share&source=collection_link&creator=13755881"
+	},
+	"item": [
+		{
+			"name": "1. Books",
+			"item": [
+				{
+					"name": "1.1 Create New Book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[1.1] TC01 Validate Response Code For Adding New Book is 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(201);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.1] TC02 Validate Response Message For Adding New Book is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"Created\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.1] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.1] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[1.1] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"title\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"author\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"isbn\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"releaseDate\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"createdAt\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"updatedAt\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"id\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"title\",\r",
+									"        \"author\",\r",
+									"        \"isbn\",\r",
+									"        \"releaseDate\",\r",
+									"        \"createdAt\",\r",
+									"        \"updatedAt\",\r",
+									"        \"id\"\r",
+									"      ]\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate title to be expected\r",
+									"pm.test(\"[1.1] TC06 Validate title return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.title).to.equal(requestBody.title);\r",
+									"});\r",
+									"\r",
+									"//validate author to be expected\r",
+									"pm.test(\"[1.1] TC07 Validate author in response as expected\",function(){\r",
+									"    pm.expect(responseBody.author).to.equal(requestBody.author);\r",
+									"});\r",
+									"\r",
+									"//validate isbn to be expected\r",
+									"pm.test(\"[1.1] TC08 Validate isbn in response as expected\",function(){\r",
+									"    pm.expect(responseBody.isbn).to.equal(requestBody.isbn);\r",
+									"});\r",
+									"\r",
+									"//validate releaseDate to be expected\r",
+									"pm.test(\"[1.1] TC09 Validate releaseDate in response as expected\",function(){\r",
+									"    pm.expect(responseBody.releaseDate).to.equal(requestBody.releaseDate);\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt \r",
+									"pm.test(\"[1.1] TC10 Validate updatedAt in response\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"updatedAt\");\r",
+									"});\r",
+									"\r",
+									"//validate createdAt \r",
+									"pm.test(\"[1.1] TC11 Validate createdAt in response \",function(){\r",
+									"   pm.expect(pm.response.json()).to.have.property(\"createdAt\");\r",
+									"});\r",
+									"\r",
+									"//Add  Data\r",
+									"pm.collectionVariables.set(\"id\",responseBody.id);\r",
+									"pm.collectionVariables.set(\"title\",responseBody.title);\r",
+									"pm.collectionVariables.set(\"author\",responseBody.author);\r",
+									"pm.collectionVariables.set(\"isbn\",responseBody.isbn);\r",
+									"pm.collectionVariables.set(\"releaseDate\",responseBody.releaseDate);\r",
+									"pm.collectionVariables.set(\"createdAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"updatedAt\",responseBody.updatedAt);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function getRandomPastDate(startYear = 1990, endYear = new Date().getFullYear()) {\r",
+									"    const start = new Date(startYear, 0, 1);\r",
+									"    const end = new Date(endYear, 11, 31);\r",
+									"    const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    return randomDate.toISOString().split(\"T\")[0]; // Format: YYYY-MM-DD\r",
+									"}\r",
+									"\r",
+									"pm.variables.set(\"releaseDate\", getRandomPastDate());\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"title\": \"{{$randomWords}}\",\r\n \"author\": \"{{$randomFullName}}\",\r\n  \"isbn\": \"{{$randomLastName}}\",\r\n  \"releaseDate\": \"{{releaseDate}}\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books"
+							]
+						},
+						"description": "**This API is used to retrieve details of a specific book by its ID, including the title, author, ISBN, release date**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.2 Get Book By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// responseBody\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response Code\r",
+									"pm.test(\"[1.2] TC01 Validate Response Code For Getting New Book is 200\", function () {\r",
+									"   pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Code\r",
+									"pm.test(\"[1.2] TC02 Validate Response Status For Getting New Book is OK\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.2] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.2] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[1.2] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"author\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"isbn\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"releaseDate\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"number\" // Changed type from \"integer\" to \"number\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"title\",\r",
+									"            \"author\",\r",
+									"            \"isbn\",\r",
+									"            \"releaseDate\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    };\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate Title to be expected\r",
+									"pm.test(\"[1.2] TC06 Validate title return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.title).to.equal(pm.collectionVariables.get(\"title\"));\r",
+									"});\r",
+									"\r",
+									"//validate author to be expected\r",
+									"pm.test(\"[1.2] TC07 Validate author in response as expected\",function(){\r",
+									"    pm.expect(responseBody.author).to.equal(pm.collectionVariables.get(\"author\"));\r",
+									"});\r",
+									"\r",
+									"//validate isbn to be expected\r",
+									"pm.test(\"[1.2] TC08 Validate isbn in response as expected\",function(){\r",
+									"    pm.expect(responseBody.isbn).to.equal(pm.collectionVariables.get(\"isbn\"));\r",
+									"});\r",
+									"\r",
+									"//validate releaseDate to be expected\r",
+									"pm.test(\"[1.2] TC09 Validate releaseDate in response as expected\",function(){\r",
+									"    pm.expect(responseBody.releaseDate).to.equal(pm.collectionVariables.get(\"releaseDate\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[1.2] TC10 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"id\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt to be expected\r",
+									"pm.test(\"[1.2] TC11 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"updatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[1.2] TC12 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"createdAt\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to retrieve details of a specific book by its ID, including the title, author, ISBN, release date**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.3 Partial Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.text();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[1.3] TC01 Validate Response Code For Getting Book is 401\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.3] TC02 Validate Response Message For getting Book is Unauthorized\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"Unauthorized\")\r",
+									"});\r",
+									"\r",
+									"//Validate Response Body\r",
+									"pm.test(\"[1.3] TC03 Validate Response Body is Unauthorized\", function () {\r",
+									"    pm.expect(responseBody).to.include(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.3] TC04 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.3] TC05 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"title\": \"{{$randomWords}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to partially update an existing book. You can modify one or more fields (e.g., title, author, or release date) without needing to resend the entire book object. Only the provided fields will be updated**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.4 Get Book By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response Code\r",
+									"pm.test(\"[1.4] TC01 Validate Response Code For Getting Book is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.4] TC02 Validate Response Message For Getting Book is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.4] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.4] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[1.4] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"author\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"isbn\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"releaseDate\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"title\",\r",
+									"            \"author\",\r",
+									"            \"isbn\",\r",
+									"            \"releaseDate\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    };\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate Title to be expected\r",
+									"pm.test(\"[1.4] TC06 Validate title return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.title).to.equal(pm.collectionVariables.get(\"title\"));\r",
+									"});\r",
+									"\r",
+									"//validate author to be expected\r",
+									"pm.test(\"[1.4] TC07 Validate author in response as expected\",function(){\r",
+									"    pm.expect(responseBody.author).to.equal(pm.collectionVariables.get(\"author\"));\r",
+									"});\r",
+									"\r",
+									"//validate isbn to be expected\r",
+									"pm.test(\"[1.4] TC08 Validate isbn in response as expected\",function(){\r",
+									"    pm.expect(responseBody.isbn).to.equal(pm.collectionVariables.get(\"isbn\"));\r",
+									"});\r",
+									"\r",
+									"//validate releaseDate to be expected\r",
+									"pm.test(\"[1.4] TC09 Validate releaseDate in response as expected\",function(){\r",
+									"    pm.expect(responseBody.releaseDate).to.equal(pm.collectionVariables.get(\"releaseDate\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[1.4] TC10 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"id\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt to be expected\r",
+									"pm.test(\"[1.4] TC11 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"updatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[1.4] TC12 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"createdAt\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to retrieve details of a specific book by its ID, including the title, author, ISBN, release date**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.5 Update Existing Book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.text();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[1.5] TC01 Validate Response Code For Getting Book is 401\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.5] TC02 Validate Response Message For getting Book is Unauthorized\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"Unauthorized\")\r",
+									"});\r",
+									"\r",
+									"//Validate Response Body\r",
+									"pm.test(\"[1.5] TC03 Validate Response Body is Unauthorized\", function () {\r",
+									"    pm.expect(responseBody).to.include(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.5] TC04 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.5] TC05 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Generate today's date in YYYY-MM-DD format\r",
+									"const date = new Date();\r",
+									"const yyyy = date.getFullYear();\r",
+									"const mm = String(date.getMonth() + 1).padStart(2, '0');\r",
+									"const dd = String(date.getDate()).padStart(2, '0');\r",
+									"pm.variables.set(\"releaseDate\", `${yyyy}-${mm}-${dd}`);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"title\": \"{{$randomWords}}\",\r\n \"author\": \"{{$randomFullName}}\",\r\n  \"isbn\": \"{{$randomLastName}}\",\r\n  \"releaseDate\": \"{{releaseDate}}\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to update the details of an existing book record. It allows modification of fields such as the title, author, ISBN, and release date by providing the book ID and updated data**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.6 Get Book By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response Code\r",
+									"pm.test(\"[1.6] TC01 Validate Response Code For Getting Book 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.6] TC02 Validate Response Message For Getting Book is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.6] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.6] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[1.6] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"author\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"isbn\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"releaseDate\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"title\",\r",
+									"            \"author\",\r",
+									"            \"isbn\",\r",
+									"            \"releaseDate\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    };\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate Title to be expected\r",
+									"pm.test(\"[1.6] TC06 Validate title return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.title).to.equal(pm.collectionVariables.get(\"title\"));\r",
+									"});\r",
+									"\r",
+									"//validate author to be expected\r",
+									"pm.test(\"[1.6] TC07 Validate author in response as expected\",function(){\r",
+									"    pm.expect(responseBody.author).to.equal(pm.collectionVariables.get(\"author\"));\r",
+									"});\r",
+									"\r",
+									"//validate isbn to be expected\r",
+									"pm.test(\"[1.6] TC08 Validate isbn in response as expected\",function(){\r",
+									"    pm.expect(responseBody.isbn).to.equal(pm.collectionVariables.get(\"isbn\"));\r",
+									"});\r",
+									"\r",
+									"//validate releaseDate to be expected\r",
+									"pm.test(\"[1.6] TC09 Validate releaseDate in response as expected\",function(){\r",
+									"    pm.expect(responseBody.releaseDate).to.equal(pm.collectionVariables.get(\"releaseDate\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[1.6] TC10 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"id\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt to be expected\r",
+									"pm.test(\"[1.6] TC11 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"updatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[1.6] TC12 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"createdAt\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to retrieve details of a specific book by its ID, including the title, author, ISBN, release date**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.7 Delete Book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var responseBody = pm.response.text();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[1.7] TC01 Validate Response Code For Getting Book is 401\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.7] TC02 Validate Response Message For getting Book is Unauthorized\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response Body\r",
+									"pm.test(\"[1.7] TC03 Validate Response Body is Unauthorized\", function () {\r",
+									"    pm.expect(responseBody).to.include(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.7] TC04 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.7] TC05 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to delete an existing book from the system using its unique book ID. Once deleted, the book will no longer be retrievable.**"
+					},
+					"response": []
+				},
+				{
+					"name": "1.8 Get Book By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response Code\r",
+									"pm.test(\"[1.8] TC01 Validate Response Code For Getting Book 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[1.8] TC02 Validate Response Message For Getting Book is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[1.8] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[1.8] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[1.8] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"author\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"isbn\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"releaseDate\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"title\",\r",
+									"            \"author\",\r",
+									"            \"isbn\",\r",
+									"            \"releaseDate\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    };\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate Title to be expected\r",
+									"pm.test(\"[1.8] TC06 Validate title return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.title).to.equal(pm.collectionVariables.get(\"title\"));\r",
+									"});\r",
+									"\r",
+									"//validate author to be expected\r",
+									"pm.test(\"[1.8] TC07 Validate author in response as expected\",function(){\r",
+									"    pm.expect(responseBody.author).to.equal(pm.collectionVariables.get(\"author\"));\r",
+									"});\r",
+									"\r",
+									"//validate isbn to be expected\r",
+									"pm.test(\"[1.8] TC08 Validate isbn in response as expected\",function(){\r",
+									"    pm.expect(responseBody.isbn).to.equal(pm.collectionVariables.get(\"isbn\"));\r",
+									"});\r",
+									"\r",
+									"//validate releaseDate to be expected\r",
+									"pm.test(\"[1.8] TC09 Validate releaseDate in response as expected\",function(){\r",
+									"    pm.expect(responseBody.releaseDate).to.equal(pm.collectionVariables.get(\"releaseDate\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[1.8] TC10 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"id\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt to be expected\r",
+									"pm.test(\"[1.8] TC11 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"updatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[1.8] TC12 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"createdAt\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/books/{{id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"{{id}}"
+							]
+						},
+						"description": "**This API is used to retrieve details of a specific book by its ID, including the title, author, ISBN, release date**"
+					},
+					"response": []
+				}
+			],
+			"description": "## 📚 Books API\n\nManage Books\n\n- **Create New Book**\n    \n- **Get Book By Id**\n    \n- **Partial Update Book**\n    \n- **Get Book By Id**\n    \n- **Update Existing Book**\n    \n- **Get Book By Id**\n    \n- **Delete Book**\n    \n- **Get Book By Id**"
+		},
+		{
+			"name": "2. Households",
+			"item": [
+				{
+					"name": "2.1 Create New HouseHold",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.1] TC01 Validate Response Code For Adding New HouseHold is 201\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(201);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.1] TC02 Validate Response Message For Adding NewHouseHold is Created\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"Created\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[2.1] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.1] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[2.1] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"name\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate name to be expected\r",
+									"pm.test(\"[2.1] TC06 Validate name return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.name).to.equal(requestBody.name);\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt \r",
+									"pm.test(\"[2.1] TC07 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"updatedAt\");\r",
+									"  \r",
+									"});\r",
+									"\r",
+									"//validate createdAt \r",
+									"pm.test(\"[2.1] TC08 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"createdAt\");\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"//Add  Data\r",
+									"pm.collectionVariables.set(\"houseHoldId\",responseBody.id);\r",
+									"pm.collectionVariables.set(\"houseHoldCreatedAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"houseHoldUpdatedAt\",responseBody.updatedAt);\r",
+									"pm.collectionVariables.set(\"houseHoldName\",responseBody.name);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"{{$randomFullName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/households",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households"
+							]
+						},
+						"description": "**Creates a new household entry by submitting details such as household name**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Get HouseHold By id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.2] TC01 Validate Response Code For Geting New HouseHold is 200\", function () {\r",
+									"\tpm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.2] TC02 Validate Response Message For Geting NewHouseHold is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[2.2] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.2] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[2.2] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"name\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"name\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate name to be expected\r",
+									"pm.test(\"[2.2] TC06 Validate name return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.name).to.equal(pm.collectionVariables.get(\"houseHoldName\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt as expected\r",
+									"pm.test(\"[2.2] TC07 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"houseHoldUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt as expected \r",
+									"pm.test(\"[2.2] TC08 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"houseHoldCreatedAt\")); \r",
+									"});\r",
+									"\r",
+									"//validate id as expected \r",
+									"pm.test(\"[2.2] TC09 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(Number(pm.collectionVariables.get(\"houseHoldId\"))); \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**This Api is used to retrieve a single household’s details using its unique household ID**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 Update Existing HouseHold",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.3] TC01 Validate Response Code For Updating New HouseHold is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.3] TC02 Validate Response Message For Updating NewHouseHold is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[2.3] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.3] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[2.3] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"name\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate name to be expected\r",
+									"pm.test(\"[2.3] TC06 Validate name return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.name).to.equal(requestBody.name);\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt \r",
+									"pm.test(\"[2.3] TC07 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"updatedAt\");\r",
+									"  \r",
+									"});\r",
+									"\r",
+									"//validate createdAt \r",
+									"pm.test(\"[2.3] TC08 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"createdAt\");\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"//Add  Data\r",
+									"pm.collectionVariables.set(\"houseHoldId\",responseBody.id);\r",
+									"pm.collectionVariables.set(\"houseHoldCreatedAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"houseHoldUpdatedAt\",responseBody.updatedAt);\r",
+									"pm.collectionVariables.set(\"houseHoldName\",responseBody.name);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"{{$randomFullName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**This ApI is used to Update all fields of an existing household by providing its ID**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 Get HouseHold By id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.4] TC01 Validate Response Code For Geting HouseHold is 200\", function () {\r",
+									"\tpm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.4] TC02 Validate Response Message For NewHouseHold is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[2.4] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.4] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[2.4] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"name\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"name\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate name to be expected\r",
+									"pm.test(\"[2.4] TC06 Validate name return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.name).to.equal(pm.collectionVariables.get(\"houseHoldName\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt as expected\r",
+									"pm.test(\"[2.4] TC07 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"houseHoldUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt as expected \r",
+									"pm.test(\"[2.4] TC08 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"houseHoldCreatedAt\")); \r",
+									"});\r",
+									"\r",
+									"//validate id as expected \r",
+									"pm.test(\"[2.4] TC09 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(Number(pm.collectionVariables.get(\"houseHoldId\"))); \r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"houseHoldId\",responseBody.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**This Api is used to retrieve a single household’s details using its unique household ID**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 Partial Update HouseHold Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Request Body and Response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.5] TC01 Validate Response Code For Updating New HouseHold is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.5] TC02 Validate Response Message For Updating NewHouseHold is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[2.5] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.5] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[2.5] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"name\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate name to be expected\r",
+									"pm.test(\"[2.5] TC06 Validate name return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.name).to.equal(requestBody.name);\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt \r",
+									"pm.test(\"[2.5] TC07 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"updatedAt\");\r",
+									"  \r",
+									"});\r",
+									"\r",
+									"//validate createdAt \r",
+									"pm.test(\"[2.5] TC08 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"createdAt\");\r",
+									"   \r",
+									"});\r",
+									"\r",
+									"//Add  Data\r",
+									"pm.collectionVariables.set(\"houseHoldId\",responseBody.id);\r",
+									"pm.collectionVariables.set(\"houseHoldCreatedAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"houseHoldUpdatedAt\",responseBody.updatedAt);\r",
+									"pm.collectionVariables.set(\"houseHoldName\",responseBody.name);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"{{$randomFullName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**This API Is used to Perform a partial update to an existing household. Only the provided fields will be updated**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.6 Get HouseHold By id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.6] TC01 Validate Response Code For Geting HouseHold is 200\", function () {\r",
+									"\tpm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.6] TC02 Validate Response Message For Geting HouseHold is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[2.6] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.6] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[2.6] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"name\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"createdAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"updatedAt\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"required\": [\r",
+									"            \"name\",\r",
+									"            \"createdAt\",\r",
+									"            \"updatedAt\",\r",
+									"            \"id\"\r",
+									"        ]\r",
+									"    }\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate name to be expected\r",
+									"pm.test(\"[2.6] TC06 Validate name return in response as expected\",function(){\r",
+									"    pm.expect(responseBody.name).to.equal(pm.collectionVariables.get(\"houseHoldName\"));\r",
+									"});\r",
+									"\r",
+									"//validate updatedAt as expected\r",
+									"pm.test(\"[2.6] TC07 Validate updatedAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"houseHoldUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt as expected \r",
+									"pm.test(\"[2.6] TC08 Validate createdAt in response as expected\",function(){\r",
+									"    pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"houseHoldCreatedAt\")); \r",
+									"});\r",
+									"\r",
+									"//validate id as expected \r",
+									"pm.test(\"[2.6] TC09 Validate id in response as expected\",function(){\r",
+									"    pm.expect(responseBody.id).to.equal(Number(pm.collectionVariables.get(\"houseHoldId\"))); \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**This Api is used to retrieve a single household’s details using its unique household ID**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.7 Delete HouseHold",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.7] TC01 Validate Response Code For deleting HouseHold is 204\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(204);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.7] TC02 Validate Response Message For deleting HouseHold is No Conten\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"No Content\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[2.7] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.7] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Transfer-Encoding",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**Deletes a household record from the system based on the given household ID**"
+					},
+					"response": []
+				},
+				{
+					"name": "2.8 Get HouseHold By id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting Response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[2.8] TC01 Validate Response Code For deleting New HouseHold is 404\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(404);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[2.8] TC02 Validate Response Message For deleting NewHouseHold is Not Found\", function () {\r",
+									"    pm.expect(pm.response.status).to.equal(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 1000ms\r",
+									"pm.test(\"[2.8] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 1000ms\r",
+									"pm.test(\"[2.8] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate Message in Response\r",
+									"pm.test(\"[2.8] TC05 Validate Response Message For deleting NewHouseHold is Not Found\", function () {\r",
+									"    pm.expect(responseBody.message).to.equal(\"Household not found\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/households/{{houseHoldId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"households",
+								"{{houseHoldId}}"
+							]
+						},
+						"description": "**This Api is used to retrieve a single household’s details using its unique household ID**"
+					},
+					"response": []
+				}
+			],
+			"description": "## 🏠 Household API\n\nManage HouseHold\n\n- **Create New HouseHold**\n    \n- **Get HouseHold By Id**\n    \n- **Update HouseHold**\n    \n- **Get HouseHold By Id**\n    \n- **Partial Update HouseHold**\n    \n- **Get HouseHold By Id**\n    \n- **Delete HouseHold**\n    \n- **Get HouseHold By Id**"
+		},
+		{
+			"name": "3.User",
+			"item": [
+				{
+					"name": "3.1 Create New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//requestBody and response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.1] TC01 Validate Response Code For Creating New User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(201);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.1] TC02 Validate Response Message For Creating New User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"Created\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.1] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.1] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.1] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.1] TC06 Validate firstName in response as expected\",function(){\r",
+									"    pm.expect(responseBody.firstName).to.equal(requestBody.firstName);\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.1] TC07 Validate lastName in response as expected\",function(){\r",
+									"   pm.expect(responseBody.lastName).to.equal(requestBody.lastName);\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.1] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(requestBody.email);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//Set Data\r",
+									"pm.collectionVariables.set(\"firstName\",responseBody.firstName);\r",
+									"pm.collectionVariables.set(\"lastName\",responseBody.lastName);\r",
+									"pm.collectionVariables.set(\"email\",responseBody.email);\r",
+									"pm.collectionVariables.set(\"userCreatedAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"userUpdatedAt\",responseBody.updatedAt);\r",
+									"pm.collectionVariables.set(\"userId\",responseBody.id);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "**Creates a new user in the system by submitting required user information such as firstName, lastName, email**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 Get New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.2] TC01 Validate Response Code For Getting New User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.2] TC02 Validate Response Message For Getting New User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.2] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.2] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.2] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.2] TC06 Validate firstName in response as expected\",function(){\r",
+									"pm.expect(responseBody.firstName).to.equal(pm.collectionVariables.get(\"firstName\"));\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.2] TC07 Validate lastName in response as expected\",function(){\r",
+									"pm.expect(responseBody.lastName).to.equal(pm.collectionVariables.get(\"lastName\"));\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.2] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(pm.collectionVariables.get(\"email\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[3.2] TC09 Validate createdAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"userCreatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate UpdatedAt to be expected\r",
+									"pm.test(\"[3.2] TC10 Validate UpdatedAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"userUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[3.2] TC11 Validate id in response as expected\",function(){\r",
+									"   pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"userId\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "**Retrieves the most recently created user**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//requestBody and response Body\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.3] TC01 Validate Response Code For Updating Existing User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.]3 TC02 Validate Response Message For Updating Existing User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.3] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.3] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.3] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.3] TC06 Validate firstName in response as expected\",function(){\r",
+									"    pm.expect(responseBody.firstName).to.equal(requestBody.firstName);\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.3] TC07 Validate lastName in response as expected\",function(){\r",
+									"   pm.expect(responseBody.lastName).to.equal(requestBody.lastName);\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.3] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(requestBody.email);\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[3.3] TC09 Validate createdAt in response as expected\",function(){\r",
+									"    const actualDate = new Date(responseBody.createdAt).toISOString().split('T')[0];\r",
+									"    const expectedDate = new Date(pm.collectionVariables.get(\"userCreatedAt\")).toISOString().split('T')[0];\r",
+									"    pm.expect(actualDate).to.equal(expectedDate);\r",
+									"});\r",
+									"\r",
+									"//validate UpdatedAt to be expected\r",
+									"pm.test(\"[3.3] TC10 Validate UpdatedAt in response as expected\",function(){\r",
+									"    const actualDate = new Date(responseBody.updatedAt).toISOString().split('T')[0];\r",
+									"    const expectedDate = new Date(pm.collectionVariables.get(\"userUpdatedAt\")).toISOString().split('T')[0];\r",
+									"    pm.expect(actualDate).to.equal(expectedDate);\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[3.3] TC11 Validate id in response as expected\",function(){\r",
+									"   pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"userId\"));\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//Set Data\r",
+									"pm.collectionVariables.set(\"firstName\",responseBody.firstName);\r",
+									"pm.collectionVariables.set(\"lastName\",responseBody.lastName);\r",
+									"pm.collectionVariables.set(\"email\",responseBody.email);\r",
+									"pm.collectionVariables.set(\"userCreatedAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"userUpdatedAt\",responseBody.updatedAt);\r",
+									"pm.collectionVariables.set(\"userId\",responseBody.id);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "**Replaces the existing user’s information entirely using their ID. The request must include all fields for the update.**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.4 Get User By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.4] TC01 Validate Response Code For Getting New User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.4] TC02 Validate Response Message For Getting New User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.4] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.4] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.4] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.4] TC06 Validate firstName in response as expected\",function(){\r",
+									"pm.expect(responseBody.firstName).to.equal(pm.collectionVariables.get(\"firstName\"));\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.4] TC07 Validate lastName in response as expected\",function(){\r",
+									"pm.expect(responseBody.lastName).to.equal(pm.collectionVariables.get(\"lastName\"));\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.4] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(pm.collectionVariables.get(\"email\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[3.4] TC09 Validate createdAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"userCreatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate UpdatedAt to be expected\r",
+									"pm.test(\"[3.4] TC10 Validate UpdatedAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"userUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[3.4] TC11 Validate id in response as expected\",function(){\r",
+									"   pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"userId\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "**Fetches user details by their unique identifier.**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.5 Partial Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//requestBody and responseBody\r",
+									"var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.5] TC01 Validate Response Code For Updating Existing User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.5] TC02 Validate Response Message For Updating Existing User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.5] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.5] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.5] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.5] TC06 Validate firstName in response as expected\",function(){\r",
+									"    pm.expect(responseBody.firstName).to.equal(requestBody.firstName);\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.5] TC07 Validate lastName in response as expected\",function(){\r",
+									"   pm.expect(responseBody.lastName).to.equal(requestBody.lastName);\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.5] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(requestBody.email);\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[3.5] TC09 Validate createdAt in response as expected\",function(){\r",
+									"    const actualDate = new Date(responseBody.createdAt).toISOString().split('T')[0];\r",
+									"    const expectedDate = new Date(pm.collectionVariables.get(\"userCreatedAt\")).toISOString().split('T')[0];\r",
+									"    pm.expect(actualDate).to.equal(expectedDate);\r",
+									"});\r",
+									"\r",
+									"//validate UpdatedAt to be expected\r",
+									"pm.test(\"[3.5] TC10 Validate UpdatedAt in response as expected\",function(){\r",
+									"    const actualDate = new Date(responseBody.updatedAt).toISOString().split('T')[0];\r",
+									"    const expectedDate = new Date(pm.collectionVariables.get(\"userUpdatedAt\")).toISOString().split('T')[0];\r",
+									"    pm.expect(actualDate).to.equal(expectedDate);\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[3.5] TC11 Validate id in response as expected\",function(){\r",
+									"   pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"userId\"));\r",
+									"});\r",
+									"\r",
+									"//Set Data\r",
+									"pm.collectionVariables.set(\"firstName\",responseBody.firstName);\r",
+									"pm.collectionVariables.set(\"lastName\",responseBody.lastName);\r",
+									"pm.collectionVariables.set(\"email\",responseBody.email);\r",
+									"pm.collectionVariables.set(\"userCreatedAt\",responseBody.createdAt);\r",
+									"pm.collectionVariables.set(\"userUpdatedAt\",responseBody.updatedAt);\r",
+									"pm.collectionVariables.set(\"userId\",responseBody.id);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "##### **Update Existing User**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.6 Get User By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.6] TC01 Validate Response Code For Getting New User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.6] TC02 Validate Response Message For Getting New User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.6] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.6] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.6] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.6] TC06 Validate firstName in response as expected\",function(){\r",
+									"pm.expect(responseBody.firstName).to.equal(pm.collectionVariables.get(\"firstName\"));\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.6] TC07 Validate lastName in response as expected\",function(){\r",
+									"pm.expect(responseBody.lastName).to.equal(pm.collectionVariables.get(\"lastName\"));\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.6] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(pm.collectionVariables.get(\"email\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[3.6] TC09 Validate createdAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"userCreatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate UpdatedAt to be expected\r",
+									"pm.test(\"[3.6] TC10 Validate UpdatedAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"userUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[3.6] TC11 Validate id in response as expected\",function(){\r",
+									"   pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"userId\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "##### **Fetches user details by their unique identifier.**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.7  Delete User By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.7] TC01 Validate Response Code For Deleting is 401\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(401);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.7] TC02 Validate Response Message For Deleting User is Unauthorized\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.7] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.7] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "**Deletes a user from the system by specifying their unique ID.**"
+					},
+					"response": []
+				},
+				{
+					"name": "3.8 Get User By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response Body\r",
+									"var responseBody = pm.response.json();\r",
+									"\r",
+									"//Validate Response  Code\r",
+									"pm.test(\"[3.8] TC01 Validate Response Code For Getting New User is 200\", function () {\r",
+									"\tpm.expect(pm.response.code).to.have.equal(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Message\r",
+									"pm.test(\"[3.8] TC02 Validate Response Message For Getting New User is Ok\", function () {\r",
+									"    pm.expect(pm.response.status).to.have.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"//Validate Response time is less than 2000ms\r",
+									"pm.test(\"[3.8] TC03 Validate Response Time is less Than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+									"});\r",
+									"\r",
+									"//Validate Response Size is less than 2000ms\r",
+									"pm.test(\"[3.8] TC04 Validate Response Size is less than 1000ms\", function () {\r",
+									"    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+									"});\r",
+									"\r",
+									"//Validate response schema\r",
+									"pm.test(\"[3.8] TC05 Validate Response Schema is Valid\", function () {\r",
+									"    var schema= {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"firstName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"lastName\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"email\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"createdAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"updatedAt\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"firstName\",\r",
+									"    \"lastName\",\r",
+									"    \"email\",\r",
+									"    \"createdAt\",\r",
+									"    \"updatedAt\",\r",
+									"    \"id\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"//validate firstName to be expected\r",
+									"pm.test(\"[3.8] TC06 Validate firstName in response as expected\",function(){\r",
+									"pm.expect(responseBody.firstName).to.equal(pm.collectionVariables.get(\"firstName\"));\r",
+									"});\r",
+									"\r",
+									"//validate lastName to be expected\r",
+									"pm.test(\"[3.8] TC07 Validate lastName in response as expected\",function(){\r",
+									"pm.expect(responseBody.lastName).to.equal(pm.collectionVariables.get(\"lastName\"));\r",
+									"});\r",
+									"\r",
+									"//validate email to be expected\r",
+									"pm.test(\"[3.8] TC08 Validate email in response as expected\",function(){\r",
+									"   pm.expect(responseBody.email).to.equal(pm.collectionVariables.get(\"email\"));\r",
+									"});\r",
+									"\r",
+									"//validate createdAt to be expected\r",
+									"pm.test(\"[3.8] TC09 Validate createdAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.createdAt).to.equal(pm.collectionVariables.get(\"userCreatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate UpdatedAt to be expected\r",
+									"pm.test(\"[3.8] TC10 Validate UpdatedAt in response as expected\",function(){\r",
+									"   pm.expect(responseBody.updatedAt).to.equal(pm.collectionVariables.get(\"userUpdatedAt\"));\r",
+									"});\r",
+									"\r",
+									"//validate id to be expected\r",
+									"pm.test(\"[3.8] TC11 Validate id in response as expected\",function(){\r",
+									"   pm.expect(responseBody.id).to.equal(pm.collectionVariables.get(\"userId\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "G-Token",
+								"value": "ROM831ESV",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/users/{{userId}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}"
+							]
+						},
+						"description": "**Fetches user details by their unique identifier.**"
+					},
+					"response": []
+				}
+			],
+			"description": "## 👤 User API\n\nManage user accounts\n\n- **Create New User**\n    \n- **Get User By Id**\n    \n- **Update user**\n    \n- **Get User By Id**\n    \n- **Partial Update User**\n    \n- **Get User By Id**\n    \n- **Delete user**\n    \n- **Get User By Id**"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": 85
+		},
+		{
+			"key": "title",
+			"value": "Sports compressing Montserrat"
+		},
+		{
+			"key": "author",
+			"value": "Alexander Barton"
+		},
+		{
+			"key": "isbn",
+			"value": "Runte"
+		},
+		{
+			"key": "releaseDate",
+			"value": "1990-05-12"
+		},
+		{
+			"key": "createdAt",
+			"value": "2025-05-03T23:17:12.685Z"
+		},
+		{
+			"key": "updatedAt",
+			"value": "2025-05-03T23:17:12.685Z"
+		},
+		{
+			"key": "housHoldId",
+			"value": 24
+		},
+		{
+			"key": "housHoldCreatedAt",
+			"value": "2025-05-03T21:59:50.727Z"
+		},
+		{
+			"key": "housHoldUpdatedAt",
+			"value": "2025-05-03T21:59:50.727Z"
+		},
+		{
+			"key": "housHoldName",
+			"value": "Ms. Stewart Smitham"
+		},
+		{
+			"key": "houseHoldId",
+			"value": 31
+		},
+		{
+			"key": "houseHoldCreatedAt",
+			"value": "2025-05-03T22:37:01.501Z"
+		},
+		{
+			"key": "houseHoldUpdatedAt",
+			"value": "2025-05-03T22:37:01.744Z"
+		},
+		{
+			"key": "houseHoldName",
+			"value": "Mr. Orville Waelchi"
+		},
+		{
+			"key": "firstName",
+			"value": "Angelo"
+		},
+		{
+			"key": "lastName",
+			"value": "Schamberger"
+		},
+		{
+			"key": "email",
+			"value": "Erling.Nikolaus96@hotmail.com"
+		},
+		{
+			"key": "userCreatedAt",
+			"value": "2025-05-03T23:18:04.700Z"
+		},
+		{
+			"key": "userUpdatedAt",
+			"value": "2025-05-03T23:18:04.943Z"
+		},
+		{
+			"key": "userId",
+			"value": 45
+		}
+	]
+}

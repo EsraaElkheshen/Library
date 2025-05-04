@@ -1,0 +1,1 @@
+newman run "Library.postman_collection.json" -e Library-Test.postman_environment.json --reporters=cli,htmlextra
