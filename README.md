@@ -5,134 +5,54 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [ProjectStructure](#projectStructure)
-- [EnvironmentSetup](#environmentSetup)
-- [Running](#running)
 - [Features](#features)
-- [CollectionCategories](#collectionCategories)
-- [Resources](#resources)
-- [Author](#author)
+- [Variables](#variables)
+- [Requirements](#requirements)
+- [RunningCollection](#runningCollection)
 
 
 ## Introduction
 
 - This project contains an automated API test suite built with **Postman** for managing a library system including **Books**, **Households**, and **Users**. 
 - The suite includes full CRUD operations, schema validation, dynamic data generation, and test assertions for response accuracy and performance.
+---
+
 
 ## Examples
 
-### Local testing execution example
+# Local testing execution example
 
-![Local testing execution example](execuation.gif)
+![Local testing execution example](execution.gif)
+
+## Features
 
 
-## 📦 ProjectStructure
 
-```
-Library.postman_collection.json         # Main Postman collection file
-Library-Test.postman_environment.json   # Environment with variables (e.g., URL)
-```
 
----
+## Variables
 
-## 🔧 EnvironmentSetup
+- `{{URL}}` → Base URL for the API (e.g., `https://restful-booker.herokuapp.com`)
+- `{{token}}` → Token generated after login (used for updating and deleting bookings)
+- `{{bookingid}}` → Booking ID created dynamically
 
-1. Install Node.js (v14+ recommended)
-2. Install Newman and htmlextra reporter globally:
+The collection uses **collection variables** and **random data generation** for some fields like first name, last name, and dates.
+
+## Requirements
+
+- **Postman** latest version installed
+- **Newman** (optional, for running tests from command line)
+
+
+## RunningCollection
+
+### Option 1 — Import and Run from Postman
+
+1. Download the `Restful-Booker.postman_collection.json` file.
+2. Import the collection into Postman.
+3. Set up the required variables (Base URL, Token if needed).
+4. Run individual requests or the full collection using **Collection Runner**.
+
+### Option 2 — Run via Newman (Command Line)
 
 ```bash
-npm install -g newman newman-reporter-htmlextra
-```
-
-3. Clone or download this repo and navigate to the directory.
-
----
-
-## 🚀 Running
-
-To run the entire collection with CLI and HTML report output:
-
-```bash
-newman run Library.postman_collection.json \
-  -e Library-Test.postman_environment.json \
-  --reporters cli,htmlextra \
-  --reporter-htmlextra-export output/Library_Report.html
-```
-
-Ensure the environment URL is correct:
-```env
-{{URL}} = http://localhost:3000
-```
-
----
-
-## ✨ Features
-
-- ✅ Full CRUD for **Books**, **Households**, and **Users**
-- 🔁 Uses dynamic values (e.g., `{{$randomWords}}`, `{{$randomFullName}}`, `{{releaseDate}}`)
-- 📅 Automatically generates random past dates for `releaseDate`
-- ✅ Validates:
-  - Response status codes
-  - Schema (JSON structure and required fields)
-  - Response time & size
-  - Value match between request & response
-- 🧪 Collection variables are dynamically set during test runs
-- 📊 Compatible with `htmlextra` HTML reports for easy test result visualization
-
----
-
-## 📚 Example: Create New Book
-
-### Request:
-```http
-POST {{URL}}/books
-```
-
-### Body:
-```json
-{
-  "title": "{{$randomWords}}",
-  "author": "{{$randomFullName}}",
-  "isbn": "{{$randomLastName}}",
-  "releaseDate": "{{releaseDate}}"
-}
-```
-
-### Tests:
-- Status = 201
-- Body fields match request
-- Schema is valid
-- Response time < 1000ms
-
----
-
-## 📁 CollectionCategories
-
-- `📚 Books`
-  - Create, Read, Update (Full & Partial), Delete
-- `🏠 Households`
-  - Full lifecycle with validation
-- `👤 Users`
-  - Same structure and validations (in progress or available in separate section)
-
----
-
-## 📝 Notes
-
-- Token-based auth (`G-Token: ROM831ESV`) is used in headers
-- Uses Postman pre-request scripts to assign random values
-- Collection variables like `id`, `title`, etc., are reused across requests
-
----
-
-## 📎 Resources
-
-- [Postman](https://www.postman.com/)
-- [Newman CLI](https://www.npmjs.com/package/newman)
-- [HTMLEXTRA Reporter](https://www.npmjs.com/package/newman-reporter-htmlextra)
-
----
-## 🧑‍💻 Author
-
-**Esraa Elkheshen**  
-_Contact: [Your Contact Info or GitHub Profile]
+newman run Restful-Booker.postman_collection.json
